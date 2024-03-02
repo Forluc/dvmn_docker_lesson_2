@@ -1,0 +1,8 @@
+.git
+.gitattributes
+
+README.md
+
+docker-compose.local.yml
+
+Dockerfile
