@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+    env_file:
+      - ./backend/.env
+    expose:
+      - 5432
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    command: ./node_modules/.bin/parcel watch bundles-src/index.js --dist-dir bundles --public-url="./"
+    volumes:
+      - static_volume:/star-burger/backend/staticfiles
+      - bundles_volume:/star-burger/bundles
+    depends_on:
+      - db
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    command: sh -c "python /star-burger/backend/manage.py migrate &&
+      python /star-burger/backend/manage.py collectstatic --no-input --clear &&
+      cd backend && gunicorn --bind 0.0.0.0:8000 star_burger.wsgi:application"
+    volumes:
+      - .:/star-burger/
+      - static_volume:/star-burger/backend/staticfiles
+      - media_volume:/star-burger/backend/media
+      - bundles_volume:/star-burger/backend/bundles
+    restart: always
+    expose:
+      - 8000
+    depends_on:
+      - db
+      - frontend
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.19.8-alpine
+    volumes:
+      - static_volume:/star-burger/backend/staticfiles
+      - media_volume:/star-burger/backend/media
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  bundles_volume:

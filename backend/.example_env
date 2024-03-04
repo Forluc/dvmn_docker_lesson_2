@@ -1,18 +1,13 @@
 SECRET_KEY='your_django_key'
 ALLOWED_HOSTS='127.0.0.1'
 DEBUG='True'
-DJANGO_SUPERUSER_PASSWORD='your_env'
-DJANGO_SUPERUSER_USERNAME='your_env'
 
 YANDEX_GEOCODER_API_TOKEN='your_api_token'
-
-ROLLBAR_TOKEN='your_token'
-ROLLBAR_ENVIRONMENT='your_env'
 
 POSTGRES_DB='project'
 POSTGRES_USER='user'
 POSTGRES_PASSWORD='password'
 DB_URL='postgres://user:password@db/project'
 
-
-
+ROLLBAR_TOKEN='your_token'
+ROLLBAR_ENVIRONMENT='your_env'

@@ -4,6 +4,4 @@ WORKDIR /star-burger
 
 COPY . .
 
-RUN npm install -g parcel@latest
-
 RUN npm install --also=dev
