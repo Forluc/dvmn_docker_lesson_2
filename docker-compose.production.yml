@@ -46,7 +46,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: nginx:1.19.8-alpine
+    image: nginx:latest
     volumes:
       - static_volume:/star-burger/backend/staticfiles
       - media_volume:/star-burger/backend/media
