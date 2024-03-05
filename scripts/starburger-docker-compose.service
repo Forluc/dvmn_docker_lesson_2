@@ -1,0 +1,7 @@
+[Service]
+ExecStart=docker-compose -f docker-compose.production.yml up
+Restart=always
+WorkingDirectory=/opt/dvmn_docker_lesson_2
+
+[Install]
+WantedBy=multi-user.target

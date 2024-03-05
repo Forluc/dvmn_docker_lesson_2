@@ -142,6 +142,14 @@ $ python manage.py migrate # Сделать миграции
 $ python manage.py createsuperuser # Создать суперпользователя
 ```
 
+Демонизация веб-прилжения. Создать файл на сервере `etc/systemd/system/starburger-docker-compose.service`,
+изменить `WorkingDirectory` на свою и запустить сервис:
+
+```sh
+$ systemctl enable starburger-docker-compose.service
+$ systemctl start starburger-docker-compose.service
+```
+
 ## Цели проекта
 
 Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org). За основу
