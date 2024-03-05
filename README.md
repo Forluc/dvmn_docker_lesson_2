@@ -1,7 +1,7 @@
-# [Сайт доставки еды Star Burger](https://www.dvmn.space/)
+# [Сайт доставки еды Star Burger](https://dvmn.space/)
 
 Это сайт сети ресторанов Star Burger. Здесь можно заказать превосходные бургеры с доставкой на дом. Перейти
-на [сайт](https://www.dvmn.space/)
+на [сайт](https://dvmn.space/)
 
 ![скриншот сайта](https://dvmn.org/filer/canonical/1594651635/686/)
 
@@ -95,17 +95,31 @@ $ docker-compose -f docker-compose.local.yml up
 Сайт будет доступен по адресу: [127.0.0.1:8080](http://127.0.0.1:8080/)
 
 ## Запуск веб-приложения на хостинге
-Приобрести сервер. Например, на [timeweb](https://timeweb.cloud/r/yx52009)(есть возможность получить до 2000р на
-   баланс аккаунта).
+
+Приобрести сервер. Например, на [timeweb](https://timeweb.cloud/r/yx52009)(есть возможность получить до 2000р на баланс
+аккаунта).
 
 В файле `nginx/default.conf` изменить `server_name` на свой.
 
 Собрать приложение:
+
 ```sh
 $ docker-compose -f docker-compose.production.yml up
 ```
 
 По необходимости пересобрать статику.
+
+## Установка SSL сертификата
+
+Перейти в `контейнер nginx`, обновить пакеты `apt`, установить пакет `certbot`, получить сертификат:
+
+```sh
+$ docker ps # Посмотреть id nginx
+$ docker exec -it <id-контейнера> sh # Войти в nginx
+$ apt update # Обновление пакетов apt
+$ apt install certbot python3-certbot-nginx -y # Установка пакетов для certbot
+$ certbot --nginx # Получение сертификата
+```
 
 ## Дополнительные команды для docker-compose, docker и django
 
